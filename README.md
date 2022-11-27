@@ -1,5 +1,5 @@
 # jklm.fun-Bot
-Its a jklm.fun bot that types the correct word.
+Its a jklm.fun bot that types the correct word. Also has a used word list for making more attempts
 
 ## USAGE
 It works by moving the mouse to the position of the letters indicated on the page, doing Ctrl+C and then clicking again on the previous position to proceed to write the word.
