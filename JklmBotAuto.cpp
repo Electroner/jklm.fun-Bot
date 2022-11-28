@@ -32,6 +32,7 @@ void writeWord(std::string _word) {
 		keybd_event((BYTE)VkKeyScan(_word[i]), 0, 0, 0);
 		keybd_event((BYTE)VkKeyScan(_word[i]), 0, KEYEVENTF_KEYUP, 0);
 		//delay between each letter
+		Sleep(30);
 	}
 	//Hit enter
 	keybd_event((BYTE)VkKeyScan('\r'), 0, 0, 0);
@@ -170,13 +171,15 @@ int main()
 			GetCursorPos(lpPoint);
 			mousePos.first = lpPoint->x;
 			mousePos.second = lpPoint->y;
-			cout << "Letters X: " << mousePos.first << " Letters Y: " << mousePos.second << endl;
 			mouseNoSelected = false;
 			releasedAlt = false;
+			
+			cout << "Letters X: " << mousePos.first << " Letters Y: " << mousePos.second << endl;
 		}
 		
 		if (releasedCtrl) {
 			//Set the mousePosColor to the current mouse position
+			GetCursorPos(lpPoint);
 			mousePosColor.first = lpPoint->x;
 			mousePosColor.second = lpPoint->y;
 			mouseNoSelectedColor = false;
@@ -189,7 +192,7 @@ int main()
 		color = getPixelColor(mousePosColor.first, mousePosColor.second);
 
 		//If the color is yellow (R and G are more than 200)
-		if (GetRValue(color) > 200 && GetGValue(color) > 200) {
+		if (GetRValue(color) >= 180 && GetGValue(color) >= 180) {
 			myturn = true;
 			cout << "MY TURN" << endl;
 		}
@@ -214,6 +217,7 @@ int main()
 			//Double click on the mouse position
 			mouse_event(MOUSEEVENTF_LEFTDOWN, mousePos.first, mousePos.second, 0, 0);
 			mouse_event(MOUSEEVENTF_LEFTUP, mousePos.first, mousePos.second, 0, 0);
+			Sleep(20);
 			mouse_event(MOUSEEVENTF_LEFTDOWN, mousePos.first, mousePos.second, 0, 0);
 			mouse_event(MOUSEEVENTF_LEFTUP, mousePos.first, mousePos.second, 0, 0);
 
@@ -223,7 +227,7 @@ int main()
 			keybd_event(0x43, 0x9d, KEYEVENTF_EXTENDEDKEY | KEYEVENTF_KEYUP, 0);
 			keybd_event(VK_CONTROL, 0x9d, KEYEVENTF_EXTENDEDKEY | KEYEVENTF_KEYUP, 0);
 
-			Sleep(50);
+			Sleep(75);
 
 			//Go back to the last position
 			SetCursorPos(mousePoslast.first, mousePoslast.second);
@@ -231,8 +235,6 @@ int main()
 			//Click on the mouse position
 			mouse_event(MOUSEEVENTF_LEFTDOWN, mousePoslast.first, mousePoslast.second, 0, 0);
 			mouse_event(MOUSEEVENTF_LEFTUP, mousePoslast.first, mousePoslast.second, 0, 0);
-
-			Sleep(50);
 
 			if (!OpenClipboard(NULL)) {
 				std::cout << "Error opening clipboard" << std::endl;
